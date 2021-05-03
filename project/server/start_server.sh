@@ -4,13 +4,13 @@ echo "Starting Motorbike Alarm System..."
 echo
 
 echo "Initiating server..."
-bash ~/stop_server.sh # execute stop to ensure no instances are running
-
 cd /home/pi/project/server
+
+bash stop_server.sh # execute stop to ensure no instances are running
 
 java -jar motor-system-server.jar &> server.log &
 
-echo $! > /home/pi/.pids/camera.pid # save process id for closing server
+echo $! > /home/pi/.pids/server.pid # save process id for closing server
 
 echo "Server started!"
 echo
