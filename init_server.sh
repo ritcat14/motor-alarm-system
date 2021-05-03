@@ -2,8 +2,15 @@
 
 echo "Script for fulling latest project from git, setting up the files and starting the media server."
 echo
+cd ~/
+git clone https://github.com/ritcat14/motor-alarm-system.git
 
-# git clone
+cp -r ~/motor-alarm-system/project ~/
+cp -r ~/motor-alarm-system/SIM800X ~/
+
+cd ~/project/camaera
+git clone https://github.com/jacksonliam/mjpg-streamer.git
+
 # ensure no instances are running from previously
 cd ~/project/server
 
