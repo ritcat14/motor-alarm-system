@@ -1,0 +1,79 @@
+Started server on port 8500...
+
+Request processing
+    URI:/web/data
+    METHOD:GET
+    Data of type text returned.
+Request processing
+    URI:/web/data
+    METHOD:GET
+    Data of type text returned.
+Request processing
+    URI:/web/index.html
+    METHOD:GET
+    Data of type html returned.
+Request processing
+    URI:/web/css/index.css
+    METHOD:GET
+    Data of type css returned.
+Request processing
+    URI:/web/images/box-background.png
+    METHOD:GET
+    Data of type png returned.
+Request processing
+    URI:/web/images/input-background.png
+    METHOD:GET
+Request processing
+    URI:/web/images/login-background.png
+    METHOD:GET
+    Data of type png returned.
+Request processing
+    URI:/web/images/favicon.png
+    METHOD:GET
+    Data of type png returned.
+    Data of type png returned.
+Request processing
+    URI:/web/login
+    METHOD:POST
+    Payload:loginname=test;loginpass=pass
+    Data of type authentication returned.
+Request processing
+    URI:/web/data
+    METHOD:GET
+Request processing
+    URI:/web/images/stats-button.png
+    METHOD:GET
+    Data of type text returned.
+    Data of type png returned.
+Request processing
+    URI:/web/images/track-button.png
+    METHOD:GET
+Request processing
+    URI:/web/images/camera-button.png
+    METHOD:GET
+Request processing
+    URI:/web/images/logout-button.png
+    METHOD:GET
+    Data of type png returned.
+    Data of type png returned.
+    Data of type png returned.
+Request processing
+    URI:/web/images/favicon.png
+    METHOD:GET
+    Data of type png returned.
+Request processing
+    URI:/web/images/camera_off-button.png
+    METHOD:GET
+    Data of type png returned.
+Request processing
+    URI:/web/data
+    METHOD:GET
+    Data of type text returned.
+Request processing
+    URI:/web/data
+    METHOD:GET
+    Data of type text returned.
+Request processing
+    URI:/web/data
+    METHOD:GET
+    Data of type text returned.
