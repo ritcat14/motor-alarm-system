@@ -5,38 +5,48 @@ echo
 echo
 echo "Attempting to close and running processe..."
 kill -9 $(cat /home/pi/.pids/server.pid)
-
+kill -9 $(cat /home/pi/.pids/minicom.pid)
 kill -9 $(cat /home/pi/.pids/camera.pid)
 echo
+
+# Installs required packages
 echo "Installing required packages (PASSWORD AND SUDO REQUIRED!)"
 echo
 sudo apt-get install -y openjdk-8-jre-headless openjdk-8-jre minicom python3 git cmake python-pil libjpeg-dev openvpn
 echo "Done"
 echo
+
+# Removes old files and clones git repo
 echo "Clonging Server repository"
-cd ~/
+cd /home/pi
 rm -rf project
-rm -rf SIM800X
-rm -rf motor-alarm-system
 git clone https://github.com/ritcat14/motor-alarm-system.git
 echo "Done"
 echo
-echo "Moving files to appropriate location"
-mkdir ~/.pids
-cp -r ~/motor-alarm-system/project ~/
-cp -r ~/motor-alarm-system/SIM ~/
-sudo cp ~/project/vpn/motor-system-server.ovpn /etc/openvpn/motor-system-server.conf
-echo "Done"
-echo
-echo "Setting up start-up scripts.."
-sudo awk '/fi/ { print; print "sh /home/pi/SIM/SIM800X/pi_gpio_init.sh"; next }1' /etc/rc.local
-echo "Done"
-echo
+
+# Clones camera module
 echo "Cloning camera streamer"
-cd ~/project/camera
+cd /home/pi/motor-alarm-system/project/camera
 git clone https://github.com/jacksonliam/mjpg-streamer.git
 echo "Done"
 echo
+
+# Setup project
+echo "Moving files to appropriate location"
+cp -r /home/pi/motor-alarm-system/project /home/pi
+rm -rf motor-alarm-system
+mkdir /home/pi/project/.pids
+mkdir /home/pi/project/.logs
+echo "Done"
+echo
+
+# Init all start scripts
+echo "Setting up start-up scripts.."
+sudo awk '/fi/ { print; print "sh /home/pi/project/SIM/SIM800X/pi_gpio_init.sh"; next }1' /etc/rc.local # add gpio init to boot
+echo "Done"
+echo
+
+# Builds camera module
 echo "Building camera module"
 cd mjpg-streamer/mjpg-streamer-experimental/
 make CMAKE_BUILD_TYPE=Debug
@@ -45,15 +55,16 @@ sudo make install
 export LD_LIBRARY_PATH=.
 echo "Done"
 echo
-# ensure no instances are running from previously
-cd ~/project/server
 
-echo "Changing user permissions and unzipping fiels"
+echo "Changing user permissions and unzipping files"
 # change permissions, then unzip server
+cd /home/pi/project/server
 sudo chown pi motor-system-server.zip
 unzip -o motor-system-server.zip
 echo "Done"
 echo
+
+
 echo "Executing server"
 # execute server
 bash ~/project/server/start_server.sh
