@@ -5,9 +5,9 @@ echo
 echo "========================================="
 
 # kill camera process
-kill -9 $(cat /home/pi/.pids/server.pid)
+kill -9 $(cat /home/pi/project/.pids/server.pid)
 
-bash ~/project/camera/camera_off.sh
+bash /home/pi/project/camera/camera_off.sh
 
 echo
 echo "Server shut down!"
