@@ -3,6 +3,7 @@
 echo "Script for fulling latest project from git, setting up the files and starting the media server."
 echo
 echo
+cd /home/pi
 echo "Attempting to close and running processe..."
 kill -9 $(cat /home/pi/.pids/server.pid)
 kill -9 $(cat /home/pi/.pids/minicom.pid)
@@ -28,6 +29,7 @@ echo
 echo "Cloning camera streamer"
 cd /home/pi/motor-alarm-system/project/camera
 git clone https://github.com/jacksonliam/mjpg-streamer.git
+cd /home/pi
 echo "Done"
 echo
 
@@ -48,11 +50,12 @@ echo
 
 # Builds camera module
 echo "Building camera module"
-cd mjpg-streamer/mjpg-streamer-experimental/
+cd /home/pi/project/camera/mjpg-streamer/mjpg-streamer-experimental/
 make CMAKE_BUILD_TYPE=Debug
 sudo make install
 
 export LD_LIBRARY_PATH=.
+cd /home/pi
 echo "Done"
 echo
 
@@ -61,13 +64,14 @@ echo "Changing user permissions and unzipping files"
 cd /home/pi/project/server
 sudo chown pi motor-system-server.zip
 unzip -o motor-system-server.zip
+cd /home/pi
 echo "Done"
 echo
 
 
 echo "Executing server"
 # execute server
-bash ~/project/server/start_server.sh
+bash /home/pi/project/server/start_server.sh
 echo "Done, log file at: /home/pi/project/server/server.log"
 echo
 echo "SERVER STARTED! ACCESS FROM: http://10.0.0.3:8500/web/index.html"
