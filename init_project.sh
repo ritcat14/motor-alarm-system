@@ -9,12 +9,6 @@ if [ -z $1 ]; then
 	echo " This script will collect, organise and build the alarm system."
 	echo 
 	echo "==============================================================="
-	echo 
-	echo "                  Configuring raspi-config...                  "
-	echo
-	sudo bash /home/pi/motor-alarm-system/setup.sh
-	echo
-	echo "                          Done                                 "
 	echo
 	echo "==============================================================="
 	echo "              Installing required packages...                  "
@@ -126,6 +120,7 @@ if [ -z $1 ]; then
 	sudo reboot now
 else
 	ARGUMENT=$1
+	# copy second rc.local
 	sudo cp /home/pi/project/boot/second_rc.local /etc/rc.local
 	echo "Argument: ${ARGUMENT}"
 	echo "              Finishing init. Starting server...               "

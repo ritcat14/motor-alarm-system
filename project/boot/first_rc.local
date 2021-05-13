@@ -11,16 +11,17 @@
 #
 # By default this script does nothing.
 
-# Print the IP address
-_IP=$(hostname -I) || true
-if [ "$_IP" ]; then
-  printf "My IP address is %s\n" "$_IP"
-fi
-
+sh /home/pi/project/boot/setup.sh
 sh /home/pi/project/SIM/SIM800X/pi_gpio_init.sh
 sh /home/pi/project/SIM/PPP/pon.sh
 /usr/local/bin/noip2
 systemctl start openvpn@client.service
 sh /home/pi/init_project.sh 1
+
+# Print the IP address
+_IP=$(hostname -I) || true
+if [ "$_IP" ]; then
+  printf "My IP address is %s\n" "$_IP"
+fi
 
 exit 0
