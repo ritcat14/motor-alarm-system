@@ -40,7 +40,7 @@ if [ -z $1 ]; then
 	cd /home/pi/motor-alarm-system/project/camera
 	git clone https://github.com/jacksonliam/mjpg-streamer.git
 	cd /home/pi
-	mv -r /home/pi/motor-alarm-system/project /home/pi/
+	mv /home/pi/motor-alarm-system/project /home/pi/
 	rm -rf /home/pi/motor-alarm-system
 	echo
 	echo "                          Done                                 "
@@ -65,7 +65,6 @@ if [ -z $1 ]; then
 	sudo cp /home/pi/project/SIM/PPP/fona /etc/ppp/peers/
 	sudo cp /home/pi/project/SIM/PPP/interfaces /etc/network/interfaces
 	sudo cp /home/pi/project/SIM/PPP/resolv.conf /etc/resolv.conf
-	sudo /etc/init.d/networking restart
 	echo
 	echo "                   Network setup complete                      "
 	echo
