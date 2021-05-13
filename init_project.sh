@@ -15,7 +15,7 @@ if [ -z $1 ]; then
 	echo
 	sudo apt-get update && sudo apt-get upgrade
 	sudo apt-get install -y openjdk-8-jre-headless openjdk-8-jre python3 cmake
-	sudo apt-get install -y minicom git python-pil libjpeg-dev openvpn apache2
+	sudo apt-get install -y minicom git python-pil libjpeg-dev openvpn apache2 ufw
 	echo
 	echo "                          Done                                 "
 	echo "==============================================================="
@@ -30,7 +30,7 @@ if [ -z $1 ]; then
 		kill -9 $(cat $f)
 	done
 	cd /home/pi # Safety check, do not move!
-	sudo find /home/pi -type d -delete	# Ensure is preceeded my cd /home/pi!
+	sudo find /home/pi/ -type d -delete --max-depth=1	# Ensure is preceeded my cd /home/pi!
 	echo
 	echo "                          Done                                 "
 	echo "==============================================================="
@@ -60,11 +60,19 @@ if [ -z $1 ]; then
 	echo 
 	echo "                  Camera build successfull                     "
 	echo
-	echo "                 Setting up network files...                   "
+	echo "                    Setting up network...                      "
 	echo
 	sudo cp /home/pi/project/SIM/PPP/fona /etc/ppp/peers/
 	sudo cp /home/pi/project/SIM/PPP/interfaces /etc/network/interfaces
 	sudo cp /home/pi/project/SIM/PPP/resolv.conf /etc/resolv.conf
+	sudo ufw enable
+	sudo ufw allow 12221 						# SSH
+	sudo ufw allow 8500  						# Web server
+	sudo ufw allow 8080  						# Camera stream
+	sudo ufw allow 443   						# VPN
+	sudo ufw allow proto gre from 193.113.200.195   		# PPP Gateway access
+	sudo iptables -t nat -A POSTROUTING -o ppp0 -j MASQUERADE	# allow NAT for PPP
+	sudo systemctl restart ufw					# Restart firewall
 	echo
 	echo "                   Network setup complete                      "
 	echo
@@ -100,21 +108,21 @@ if [ -z $1 ]; then
 	echo
 	echo "              Adding scripts to boot sequence...               "
 	echo
-	# boot commands to enter into crontab
-	LINES={'sh /home/pi/project/SIM/SIM800X/pi_gpio_init.sh','sh /home/pi/project/SIM/PPP/init_PPP.sh','systemctl start openvpn@client.service','/usr/local/bin/noip2'}
-	FILE='/var/spool/cron/crontabs/root'
-	for LINE in LINES; do
-		F_LINE='@reboot "$LINE"'
-		sudo grep -xqF -- "$F_LINE" "$FILE" || echo "$F_LINE" >> "$FILE"
-	done
-	echo "@reboot sh /home/pi/init_project.sh 1" >> "$FILE"
+	# copy first rc.local
+	sudo cp /home/pi/project/boot/first_rc.local /etc/rc.local
 	echo "==============================================================="
-	echo "              Init complete. Rebooting system...               "
+	echo "                        Init complete.                         "
+	echo "==============================================================="
+	echo "        REMOVE ETHERNET AND PRESS ANY KEY WHEN DONE...         "
+	echo
+	while [ true ]; do read -t 3 -n 1; if [ $? = 0 ] ; then break; fi
 	echo
 	sudo reboot now
 else
+	ARGUMENT=$1
+	sudo cp /home/pi/project/boot/second_rc.local /etc/rc.local
+	echo "Argument: ${ARGUMENT}"
 	echo "              Finishing init. Starting server...               "
-	sudo sed '$d' '/var/spool/cron/crontabs/root'
 	bash /home/pi/project/server/start_server.sh
 	echo
 	echo "                          Done                                 "
