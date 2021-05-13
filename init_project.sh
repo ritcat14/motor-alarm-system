@@ -10,6 +10,12 @@ if [ -z $1 ]; then
 	echo 
 	echo "==============================================================="
 	echo 
+	echo "                  Configuring raspi-config...                  "
+	echo
+	sudo bash /home/pi/motor-alarm-system/setup.sh
+	echo
+	echo "                          Done                                 "
+	echo
 	echo "==============================================================="
 	echo "              Installing required packages...                  "
 	echo
