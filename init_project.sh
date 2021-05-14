@@ -13,7 +13,7 @@ if [ -z $1 ]; then
 	echo "==============================================================="
 	echo "              Installing required packages...                  "
 	echo
-	sudo apt-get update && sudo apt-get upgrade
+	sudo apt-get update -y && sudo apt-get upgrade -y
 	sudo apt-get install -y openjdk-8-jre-headless openjdk-8-jre python3 cmake
 	sudo apt-get install -y minicom git python-pil libjpeg-dev openvpn apache2 ufw
 	echo
@@ -30,7 +30,7 @@ if [ -z $1 ]; then
 		kill -9 $(cat $f)
 	done
 	cd /home/pi # Safety check, do not move!
-	sudo find /home/pi/ -type d -delete --max-depth=1	# Ensure is preceeded my cd /home/pi!
+	sudo find /home/pi/ -type d -delete --max-depth=1	# Ensure is preceeded by cd /home/pi!
 	echo
 	echo "                          Done                                 "
 	echo "==============================================================="
@@ -115,7 +115,7 @@ if [ -z $1 ]; then
 	echo "==============================================================="
 	echo "        REMOVE ETHERNET AND PRESS ANY KEY WHEN DONE...         "
 	echo
-	while [ true ]; do read -t 3 -n 1; if [ $? = 0 ] ; then break; fi
+	while [ true ]; do read -t 3 -n 1; if [ $? = 0 ] ; then break; fi done
 	echo
 	sudo reboot now
 else
