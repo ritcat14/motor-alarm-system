@@ -1,3 +1,0 @@
-test:pass
-test2:pass
-test3:pass
