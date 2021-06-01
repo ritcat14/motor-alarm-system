@@ -15,7 +15,7 @@ if [ -z $1 ]; then
 	echo
 	sudo apt-get update -y && sudo apt-get upgrade -y
 	sudo apt-get install -y openjdk-8-jre-headless openjdk-8-jre python3 cmake
-	sudo apt-get install -y minicom git python-pil libjpeg-dev openvpn apache2 ufw
+	sudo apt-get install -y minicom git python-pil libjpeg-dev openvpn apache2 ufw ppp
 	echo
 	echo "                          Done                                 "
 	echo "==============================================================="
@@ -30,7 +30,7 @@ if [ -z $1 ]; then
 		kill -9 $(cat $f)
 	done
 	cd /home/pi # Safety check, do not move!
-	sudo find /home/pi/ -type d -delete --max-depth=1	# Ensure is preceeded by cd /home/pi!
+	sudo find /home/pi/ -type d -delete --max-depth=1	# Ensure is preceeded by cd /home/pi! removes onyl directories
 	echo
 	echo "                          Done                                 "
 	echo "==============================================================="
@@ -62,7 +62,7 @@ if [ -z $1 ]; then
 	echo
 	echo "                    Setting up network...                      "
 	echo
-	sudo cp /home/pi/project/SIM/PPP/fona /etc/ppp/peers/
+	sudo cp /home/pi/project/SIM/PPP/fona /etc/ppp/peers/fona
 	sudo cp /home/pi/project/SIM/PPP/interfaces /etc/network/interfaces
 	sudo cp /home/pi/project/SIM/PPP/resolv.conf /etc/resolv.conf
 	sudo ufw enable
@@ -79,7 +79,7 @@ if [ -z $1 ]; then
 	echo "                      Setting up noip...                       "
 	echo
 	cd /home/pi/project/noip
-	wget https://www.noip.com/client/linus/noip-duc-linux.tar.gz
+	wget https://www.noip.com/client/linux/noip-duc-linux.tar.gz
 	tar -zxvf noip-duc-linux.tar.gz
 	cd /home/pi/project/noip/noip-*/
 	sudo make
