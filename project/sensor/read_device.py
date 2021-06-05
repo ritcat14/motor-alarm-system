@@ -57,7 +57,7 @@ print "Y-Axis of Rotation : %d" %yGyro
 
 print "Z-Axis of Rotation : %d" %zGyro
 
-f = open("/home/pi/project/sensor/sensor_data/%s.cal" %busID, 'w')
+f = open("/home/pi/project/sensor/sensor_data/%s.data" %busID, 'w')
 f.write("aX:{0}|aY:{1}|aZ:{2}|gX:{3}|gY:{4}|gZ:{5}\n".format(xAccl, yAccl, zAccl, xGyro, yGyro, zGyro))
 f.close()
 

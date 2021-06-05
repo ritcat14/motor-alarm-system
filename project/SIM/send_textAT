@@ -1,0 +1,11 @@
+send AT
+expect "OK"
+
+send AT+CMGF=1
+expect "OK"
+
+send AT+CMGS="\"07454005496\""
+expect ">"
+send "Your vehicle is being stolen!"
+send "\032"
+
