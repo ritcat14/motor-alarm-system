@@ -27,7 +27,7 @@ sudo ufw allow 443						# VPN
 sudo ufw allow proto gre from 193.113.200.195			# PPP Gateway access
 sudo iptables -t nat -A POSTROUTING -o ppp0 -j MASQUERADE	# NAT Rules for PPP Communication
 sudo systemctl restart ufw					# Restart firewall to apply changes
-sudo cp ~/project/vpn/client.conf /etc/openvpn/client.conf	# Copy VPN client file
+sudo cp ~/project/vpn/client.ovpn /etc/openvpn/client.conf	# Copy VPN client file
 
 # Finally, copy boot script to ensure system starts on boot
 sudo cp ~/project/boot/config.txt /boot/config.txt
