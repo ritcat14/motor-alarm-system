@@ -14,8 +14,17 @@ connect "/usr/sbin/chat -v -f /etc/chatscripts/gprs -T payandgo.o2.co.uk"
 # Speed of the serial line.
 115200
 
-lock
+debug
 
+nodetach
+ipcp-accept-local
+ipcp-accept-remote
+
+proxyarp
+dump
+passive
+maxfail 0
+holdoff 1
 
 # Assumes that your IP address is allocated dynamically by the ISP.
 noipdefault

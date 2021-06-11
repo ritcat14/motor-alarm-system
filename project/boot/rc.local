@@ -23,8 +23,6 @@ sh /home/pi/project/SIM/pi_gpio_init.sh
 sh /home/pi/project/SIM/pon.sh
 # Start vpn
 sh /home/pi/project/vpn/start_vpn.sh
-# Start noip service
-noip2
 # Start web server
 sh /home/pi/project/server/start_server.sh
 
