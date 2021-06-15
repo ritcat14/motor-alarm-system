@@ -1,6 +1,6 @@
 # motor-alarm-system
 
-Clone repo and run init_project.sh (root not required for execution, but is requried in script)
+Clone repo and run init_system.sh (root not required for execution, but is requried in script)
 
 Script will clone, build and run server.
 
