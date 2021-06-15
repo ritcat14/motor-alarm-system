@@ -1,0 +1,14 @@
+
+send AT
+expect "OK"
+
+send AT+CMGF=1
+expect "OK"
+
+send AT+CMGS="\"07592302995\""
+expect ">"
+
+send "ALERT! Vehicle was moved!\032"
+
+exit
+

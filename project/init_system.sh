@@ -15,6 +15,9 @@ cp -r ~/motor-alarm-system/project .
 rm -rf motor-alarm-system
 cd ~/project/server
 unzip -o *.zip
+cd ~/project
+mkdir .pids
+mkdir .logs
 cd ~/
 
 # Begin process by setting up internet
@@ -32,3 +35,6 @@ sudo cp ~/project/vpn/client.ovpn /etc/openvpn/client.conf	# Copy VPN client fil
 # Finally, copy boot script to ensure system starts on boot
 sudo cp ~/project/boot/config.txt /boot/config.txt
 sudo cp ~/project/boot/rc.local /etc/rc.local
+#sudo cp ~/project/boot/listen-for-shutdown.py /usr/local/bin/
+#sudo cp ~/project/boot/listen-for-shutdown.sh /etc/init.d/
+#sudo update-rc.d listen-for-shutdown.sh defaults

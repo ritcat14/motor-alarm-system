@@ -18,12 +18,12 @@ if [ "$_IP" ]; then
 fi
 
 # Setup GPIO as required
-sh /home/pi/project/SIM/pi_gpio_init.sh
+bash /home/pi/project/SIM/pi_gpio_init.sh &
 # Start PPP
-sh /home/pi/project/SIM/pon.sh
+bash /home/pi/project/SIM/pon.sh &
 # Start vpn
-sh /home/pi/project/vpn/start_vpn.sh
+bash /home/pi/project/vpn/start_vpn.sh &
 # Start web server
-sh /home/pi/project/server/start_server.sh
+bash /home/pi/project/server/start_server.sh &
 
 exit 0
